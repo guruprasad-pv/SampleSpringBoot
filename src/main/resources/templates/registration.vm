@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <title>PAT Registration</title>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js" integrity="sha256-OYBjfRDIvhV+MwSNsZKYHQIsIqAo/OT1S3e2XHUEHFo=" crossorigin="anonymous"></script>
+        <script src="public/js/lobibox.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" integrity="sha256-9wRM03dUw6ABCs+AU69WbK33oktrlXamEXMvxUaF+KU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="public/css/lobibox.min.css">
+        <link rel="stylesheet" type="text/css" href="public/css/app.css">
+    </head>
+    <body>
+    
+        #parse ("templates/common/header.vm")
+        <div class="content-wrapper">
+        	<div class="row">
+        		<div class="col-lg-12">
+			        <div class="bannerText">
+			            <h1>
+			                <span>Java Meetup Registration</span>
+			            </h1>
+			        </div>
+		        </div>
+        	</div>
+
+      
+       
+        <div class="row">
+        	<div class="col-lg-6">
+        	
+        		<div class="panel panel-default">
+	        		<div class="panel-body">
+				        <form id="regForm">
+				          <div class="form-group">
+                              <label for="name" class="control-label">Name *</label>
+                              <input type="text" id="name" name="name" class="form-control" maxlength="50">
+                           </div>
+   				          <div class="form-group">
+                              <label for="password" class="control-label">Password *</label>
+                              <input type="password" id="password" name="password"  class="form-control" maxlength="20">
+                           </div>
+   				          <div class="form-group">
+                              <label for="password" class="control-label">Retype Password *</label>
+                              <input type="password" id="retype" name="retype"  class="form-control" maxlength="20">
+                           </div>
+
+  				          <div class="form-group">
+                              <label for="address" class="control-label">Address *</label>
+                              <input type="text" id="address" name="address"  class="form-control" maxlength="70">
+                           </div>
+ 				          <div class="form-group">
+                              <label for="email" class="control-label">Email *</label>
+                              <input type="text" id="email" name="email"  class="form-control" maxlength="30">
+                           </div>
+				          <div class="form-group">
+                              <label for="phone" class="control-label">Phone Number *</label>
+                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" maxlength="13">
+                          </div>
+
+				           <div class="pull-right">
+                                 <button type="submit" id="submitReg" class="btn btn-primary">Submit</button>
+                           </div>
+ 
+				        </form>
+				    </div>    
+		        </div>
+	        </div>
+	     </div>   
+        </div>
+        
+  
+        #parse ("templates/common/footer.vm")
+        
+        
+	<script>
+    $(document).ready(function() {
+    
+    		//Add a custom method to check for only letters and spaces
+    		$.validator.addMethod("lettersonly", function(value, element) {
+    				return this.optional(element) || value == value.match(/^[a-zA-Z\s]+$/);
+			});
+			
+			/*-------------------------------------------------------------------
+			 * Use JQuery validate for all the validations.
+			 * Once validated, compose the JSON object and send it to REST end point
+			 * Display the created ID on server for reference to the user as a feedback
+			 *-------------------------------------------------------------------
+			*/
+    		$('#regForm').validate(
+ 	    		{
+	    		  //debug:true,
+				  rules: {
+				    name: {
+				    	required:true,
+				    	lettersonly:true
+				    },
+				    password: {
+				    	required:true,
+				    	minlength:6
+				    },
+				    retype: {
+                      required:true,
+                      equalTo:"#password"
+                    },
+                    address:{
+                    	required:true
+                    },
+     		      	email: {
+				      required: true,
+				      email: true
+				    },
+				    phoneNumber: {
+				      required: true,
+				      digits:true,
+				      rangelength:[11,12]
+				    }
+				  },
+				  messages: {
+				    name: {
+				    	required:"Please specify your name",
+				    	lettersonly:"Entered value does not look like a name (No numbers please!!)"
+				    },
+				    password:{
+				    	required:"Please provide password",
+				    	minlength:"Password should have at least 6 characters"
+				    },
+				    retype:{
+				    	required:"Please re-enter the password",
+				    	equalTo:"Re-entered password does not match the password"
+				    },
+				    address:{
+				    	required:"We need your address to contact you"
+				    },
+				    email: {
+				      required: "We need your email address to contact you",
+				      email: "Your email address must be in the format of name@domain.com"
+				    },
+				    phoneNumber: {
+				      required:"We need your phone number to contact you",
+				      digits:"Please provide a valid phone number(please remove '+' if added)",
+				      rangelength:"Please provide valid phone number( enter a phone number including only area code )"
+				    }
+				  },
+				  invalidHandler: function(event, validator) {
+     					let errors = validator.numberOfInvalids();
+				   		 if (errors) {
+				   		 		Lobibox.notify("warning",
+										{
+							    		  size: 'mini',
+							    		  sound:false,
+							    		  position: 'center top',
+							    		  rounded: true,
+	    									msg: "Unfortunately details provided were not in order",
+											title: "Could not register"
+										});
+				     	 } 
+				  },
+				  submitHandler: function(form){
+				  			//Convert the form elements to JSON object
+				  			let formArr = jQuery(form).serializeArray();
+				  			let registration={};
+				  			formArr.forEach(function(o){
+				  				registration[o.name]=o.value;
+				  			});
+				  			let toSubmit = JSON.stringify(registration);
+				  			$.ajax({
+				  				url:'/rest/registration/save',
+				  				dataType : 'json',
+				  				type: 'POST',
+				  				data: toSubmit,
+				  				contentType : "application/json",
+				  				beforeSend: function(){
+				  					$.blockUI();
+				  				},
+				  				success: function(data)	{
+				  					let id = data;
+				  					let displayMessage ="You are successfully registered for the event. Your registration ID(reference): "+id;
+				  					let lobi = Lobibox.alert('success',{
+				  						msg:displayMessage,
+				  						sound:false
+				  					});
+				  					lobi.setWidth(400);
+									lobi.setPosition(100, 200);
+				  					 $('#regForm')[0].reset();
+				  				},
+				  				error: function(){
+				  					let lobi = Lobibox.alert('error',{
+				  						msg:"Some problem while registering please try again later",
+				  						sound:false
+				  					});
+				  					lobi.setWidth(400);
+									lobi.setPosition(100, 200);
+				  					
+				  				},
+				  				complete: function(){
+				  					$.unblockUI();
+				  				}
+				  			});
+				  },
+				  errorClass: "formError"
+				}
+    		);
+   	});
+    </script>
+    </body>
+</html>
