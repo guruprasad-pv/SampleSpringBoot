@@ -5,7 +5,7 @@
 
 	<groupId>com.k15t.recruiting</groupId>
 	<artifactId>k15t-full-stack-dev-tasks</artifactId>
-	<version>0.1.0</version>
+	<version>1.0</version>
 
 	<name>K15t assessment tasks for full stack developers.</name>
 

@@ -36,7 +36,7 @@ public class Registration {
 	@Column(length = 60)
 	private String name;
 
-	@JsonView(Views.RegistratrionJson.class)
+	@JsonIgnore
 	@Column(length = 20)
 	private String password;
 
