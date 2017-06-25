@@ -47,9 +47,10 @@ Rest end points are added. The end point save is idempotent, and it is assumed t
 * Rest end point to list a registration by phone: /rest/registration/phone/{phone}
 * Rest end point to list a registration by email: /rest/registration/email/{email id}
 * Rest end point to search registrations by a name: /rest/registration/name/{name of 
-
 * Rest end point to list any additional address components recognized: 
 /rest/registration//addressComponents/{id}
+
+* Rest end point to delete the registration /rest/registration/delete/{id}
 
 
 
