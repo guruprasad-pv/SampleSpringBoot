@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.k15t.pat.registration.model.AddressComponent;
 import com.k15t.pat.registration.model.Registration;
 import com.k15t.pat.registration.repositories.RegistrationRepository;
 
@@ -157,5 +158,19 @@ public class RegistrationResource {
 		repository.deleteRegistration(id);
 		return Response.ok("DELETED",MediaType.APPLICATION_JSON).build();
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addressComponents/{id}")
+	public Response getAddressComponents(@PathParam("id") long id) {
+		logger.debug("#############Received Get Address Components##################");
+				
+		List<AddressComponent> components = repository.getAddressComponents(id);
+
+		if (components == null) return Response.ok("",MediaType.APPLICATION_JSON).build();
+		else return Response.ok(components,MediaType.APPLICATION_JSON).build();
+    }
+
+	
 	
 }

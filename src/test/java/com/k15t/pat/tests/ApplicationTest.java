@@ -26,9 +26,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.k15t.pat.registration.RegistrationController;
 import com.k15t.pat.registration.RegistrationResource;
+import com.k15t.pat.registration.model.AddressComponent;
 import com.k15t.pat.registration.model.Registration;
 import com.k15t.pat.registration.model.Views;
-
+/**
+ * Test cases
+ * Tests REST end points, and consequently the data store.
+ * Spring application for test is started at a random port,
+ * and the port number is injected for reference in tests
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ApplicationTest {
@@ -44,6 +50,8 @@ public class ApplicationTest {
 	public static String MY_GET_REG_BY_EMAIL_URL = "/rest/registration/email/";
 	
 	public static String MY_DELETE_REG_URL = "/rest/registration/delete/";
+	
+	public static String MY_GET_ADDCOMP_URL = "/rest/registration/addressComponents/";
 	
 	public static String MY_PHONE ="712246824594";
 	
@@ -63,11 +71,12 @@ public class ApplicationTest {
 
 	@Autowired
 	private RegistrationResource restResource;
+	
 
 	
 	/**
 	 * The data is setup. 
-	 * A registration is saved.
+	 * A registration is saved by a rest call.
 	 * Also test if the registration is actually saved
 	 *
 	 */
@@ -214,6 +223,56 @@ public class ApplicationTest {
 		//Check if the returned id is same as existing id
 		
 		assertTrue(Long.parseLong(idStr) == newRegistration.getId());
+		
+	}
+	
+	/**
+	 * Tests to see if address is split into components
+	 * 
+	 */
+	public void testForAddressComponents(){
+		newRegistration.setAddress("Werbellin Strasse 69 Neukoeln 12053 Berlin");
+		newRegistration.setPhoneNumber("123456789012");
+		newRegistration.setEmail("test@email.com");
+		newRegistration.setName("Test name");
+		
+		String urlToPost = MY_BASE_URL + port;
+		urlToPost += MY_SAVE_URL;
+
+
+		ObjectMapper mapper = new ObjectMapper();
+		String result = null;
+		try {
+			result = mapper.writerWithView(Views.RegistratrionJson.class).writeValueAsString(newRegistration);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			fail("Some problem with the JSON mapper!!");
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(result, headers);
+
+		String idStr = restTemplate.postForObject(urlToPost, entity, String.class);
+		assertTrue(idStr!=null);
+		
+		String getUrl = MY_BASE_URL + port;
+		getUrl += MY_GET_ADDCOMP_URL;
+		getUrl += idStr;
+
+		ResponseEntity<AddressComponent[]> response = restTemplate.getForEntity(getUrl, AddressComponent[].class);
+		AddressComponent[] components = response.getBody();
+		
+		//Check if address components are created
+		assertTrue(components.length>2);
+		
+		String deleteUrl = MY_BASE_URL + port;
+		deleteUrl += MY_DELETE_REG_URL;
+		deleteUrl += idStr;
+
+		ResponseEntity<String> deleteResponse = restTemplate.exchange(deleteUrl,HttpMethod.DELETE,null,String.class);
+		assertThat(deleteResponse.getBody()).contains("DELETED");
+
 		
 	}
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import com.k15t.pat.registration.model.AddressComponent;
 import com.k15t.pat.registration.model.Registration;
 /**
  * 
@@ -27,4 +28,5 @@ public interface RegistrationRepository {
 	
 	public void deleteRegistration(long id);
 	
+    public List<AddressComponent> getAddressComponents(long id);	
 }

@@ -1,11 +1,15 @@
 package com.k15t.pat.registration.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -47,6 +51,10 @@ public class Registration {
 	@JsonView(Views.RegistratrionJson.class)
 	@Column(length = 15,unique = true)
 	private String phoneNumber;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="registration")
+	List<AddressComponent> adressComponents;
 	
 	public long getId() {
 		return id;
@@ -106,6 +114,14 @@ public class Registration {
 		buff.append(" ").append("Phone: ").append(getPhoneNumber());
 		buff.append("}");
 		return buff.toString();
+	}
+
+	public List<AddressComponent> getAdressComponents() {
+		return adressComponents;
+	}
+
+	public void setAdressComponents(List<AddressComponent> adressComponents) {
+		this.adressComponents = adressComponents;
 	}
 
 

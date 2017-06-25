@@ -9,4 +9,6 @@ public class Views {
 
 	public static class RegistratrionJson{}
 	
+	public static class AddressComponentJson{}
+	
 }
