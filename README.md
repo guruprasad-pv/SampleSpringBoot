@@ -1,45 +1,61 @@
 # Full-Stack Developer Sample Project
 
 
-## What is it about?
-Here we have a small web application allowing to register for the next Java Meetup.
-Unfortunately the most important part of the app is still missing. The form 
-fields as well as the backend to store the data in memory. But you are here to 
-help us out and get it done.
+## The Application
+Small Java application that registers for a Java meet up.
+The registrations are stored in memory HSQL database.
+Once a registration is made, the registration can be viewed using REST end point urls.
+Rest end point to list all registrations: rest/registration/listAll
+Rest end point to list a registration by phone: /rest/registration/phone/{phone}
+Rest end point to list a registration by email: /rest/registration/email/{email id}
+Rest end point to search registrations by a name: /rest/registration/name/{name of the person}
+
+There is one more way to look at the saved registrations. A swing based HSQL DB Manager can be used to look at database during runtime of the application.
+Uncomment the @PostConstruct part in class ApplicationBootStrap, and while starting the application, pass the JVM argument -Djava.awt.headless=false     
+
  
-## But *what* should I do exactly?
-Extend the form with the required fields (see registration.vm for further details) and 
-store the entered information by using a REST endpoint. Giv the user feedback if the
-save was successful or in case of an error. Ensure mandatory fields will be entered
-and verify the entered values are reasonable e.g. the name must not contains numbers.
+## Changes made to code provided
+The version of the spring-boot is changed to latest version 1.5.RELEASE
+Even though the support for velocity template is deprecated, the velocity templates are retained.
+Initialization of Jersey Servlet in ApplicationBootstrap is commented, and @ApplicationPath annotation is added in the JerseyConfig
 
-To start with, please see the already created files and classes. Especially:
+Additional dependencies are added in pom
 
-* com.k15t.pat.registration: The package includes a REST endpoint and a controller
-* resources/templates: The folder includes the initial velocity templates for the registration page 
 
-The Maven build creates a executable jar which includes the whole runtime (tomcat) to run the app.
-You can start it with java -jar registration-0.1.0.jar. If the application is started the pages are
-available under http://localhost:8080/registration.html
+## Extensions made to the code provided
+An HTML form is created. For rendering html, already included boot strap classes are used.
+JQuery Validator plugin is added for validation of the form
+Once the validation is successful, the form data is posted as JSON to the REST end point.
 
-## A few words about the technology stack
-The application is build on top of Spring Boot (http://projects.spring.io/spring-boot/) providing a runtime container. 
-Furthermore Jersey for implementing REST resources, Velocity for templating pages and jQuery/Bootstrap is included and 
-can be used as well. Building and packaging the application is done with Maven. 
+For saving of the registration, JPA is used and HSQL embedded database is automatically configured by spring. 
+Following are the Entity classes
+Registration
+AddressComponent
 
-## What's expected of me?
-When our engineers receive your final result, we'll be looking at the following things:
+After saving the registration, An attempt is made to recognize some pattern in address to store them as separate components.
+Currently only simple German address pattern is recognized like like Werbellin Strasse 69 Neukoeln 12053 Berlin, that contains, street name followed by house no, 5 digit postal code and city name
 
-* The ability to build it out of the box using maven
-* Improvements you made around the main task  
-* The quality and style of code written
-* The tests and their structure and coverage
-* The choice of technologies used to complete the task. You are free to use whatever you think is needed and helps you to get it done!
-* The documentation provided (mainly javadoc). Please consider also to document assumptions or decisions you made.  
+Another important addition is JINQ streams. With JINQ, the data base queries are treated as simple collections and lamda expressions, and results are obtained as java streams
+ 
+Rest end points are added. The end point save is idempotent, and it is assumed that two people will not register with same phone or email.
+Rest end point to save the registration: rest/registration/save
+Rest end point to list all registrations: rest/registration/listAll
+Rest end point to list a registration by phone: /rest/registration/phone/{phone}
+Rest end point to list a registration by email: /rest/registration/email/{email id}
+Rest end point to search registrations by a name: /rest/registration/name/{name of 
 
-Typically we expect it to compile and run on a Mac/Windows environment with Java 8. If your set up is any different, do let us know!
-When you are done share the result via GitHub.
+Rest end point to list any additional address components recognized: 
+/rest/registration//addressComponents/{id}
 
-Tip: Use git as you would in a product environment - small, meaningful commits with descriptive commit messages. This makes it easy for the reviewer to follow your steps and comprehend what you are doing.
+Rest end point to delete the registration: /rest/registration/delete/{id}
 
-Good luck!
+
+
+## Test cases
+Integration test cases are added, that initializes the boot application and tests the actions required using rest template provided by Spring.
+These test cases test saving and idempotentence and hence will also test the JPA layer
+
+Unit cases and JPA test cases are not added, since the scope is small and there are no
+complex querying of data.
+
+
