@@ -26,7 +26,8 @@ Additional dependencies are added in pom
 
 ## Extensions made to the code provided
 An HTML form is created. For rendering html, already included boot strap classes are used.
-JQuery Validator plugin is added for validation of the form
+JQuery Validator plugin is added for validation of the form. Although I would prefer React Js in actual products, JQuery was used to build it in short span of time because of readily available validator plugin.
+
 Once the validation is successful, the form data is posted as JSON to the REST end point.
 
 For saving of the registration, JPA is used and HSQL embedded database is automatically configured by spring. 
