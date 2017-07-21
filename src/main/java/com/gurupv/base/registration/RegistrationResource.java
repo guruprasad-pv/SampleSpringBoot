@@ -1,4 +1,4 @@
-package com.k15t.pat.registration;
+package com.gurupv.base.registration;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.k15t.pat.registration.model.AddressComponent;
-import com.k15t.pat.registration.model.Registration;
-import com.k15t.pat.registration.repositories.RegistrationRepository;
+import com.gurupv.base.registration.model.AddressComponent;
+import com.gurupv.base.registration.model.Registration;
+import com.gurupv.base.registration.repositories.RegistrationRepository;
 
 /**
  * 

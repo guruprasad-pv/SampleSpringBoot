@@ -1,4 +1,4 @@
-package com.k15t.pat.tests;
+package com.gurupv.base.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -24,11 +24,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.k15t.pat.registration.RegistrationController;
-import com.k15t.pat.registration.RegistrationResource;
-import com.k15t.pat.registration.model.AddressComponent;
-import com.k15t.pat.registration.model.Registration;
-import com.k15t.pat.registration.model.Views;
+import com.gurupv.base.registration.RegistrationController;
+import com.gurupv.base.registration.RegistrationResource;
+import com.gurupv.base.registration.model.AddressComponent;
+import com.gurupv.base.registration.model.Registration;
+import com.gurupv.base.registration.model.Views;
 /**
  * Test cases
  * Tests REST end points, and consequently the data store.

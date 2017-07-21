@@ -1,4 +1,4 @@
-package com.k15t.pat.registration.repositories;
+package com.gurupv.base.registration.repositories;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.k15t.pat.JinqSource;
-import com.k15t.pat.registration.model.AddressComponent;
-import com.k15t.pat.registration.model.Registration;
+import com.gurupv.base.JinqSource;
+import com.gurupv.base.registration.model.AddressComponent;
+import com.gurupv.base.registration.model.Registration;
 
 /**
  * 

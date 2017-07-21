@@ -1,11 +1,11 @@
-package com.k15t.pat.registration.repositories;
+package com.gurupv.base.registration.repositories;
 
 import java.util.List;
 
 import javax.inject.Named;
 
-import com.k15t.pat.registration.model.AddressComponent;
-import com.k15t.pat.registration.model.Registration;
+import com.gurupv.base.registration.model.AddressComponent;
+import com.gurupv.base.registration.model.Registration;
 /**
  * 
  * Repository interface to handle the {@link Registration} model.

@@ -1,4 +1,4 @@
-# Full-Stack Developer Sample Project
+# Sample Spring Boot Project
 
 
 ## The Application
@@ -14,18 +14,9 @@ Once a registration is made, the registration can be viewed using REST end point
 There is one more way to look at the saved registrations. A swing based HSQL DB Manager can be used to look at database during runtime of the application.
 Uncomment the @PostConstruct part in class ApplicationBootStrap, and while starting the application, pass the JVM argument -Djava.awt.headless=false     
 
- 
-## Changes made to code provided
-The version of the spring-boot is changed to latest version 1.5.RELEASE
-Even though the support for velocity template is deprecated, the velocity templates are retained.
 
-Initialization of Jersey Servlet in ApplicationBootstrap is commented, and @ApplicationPath annotation is added in the JerseyConfig
-
-Additional dependencies are added in pom
-
-
-## Extensions made to the code provided
-An HTML form is created. For rendering html, already included boot strap classes are used.
+## Additional Information
+An HTML form is created. Boot strap is used in the HTML.
 JQuery Validator plugin is added for validation of the form. Although I would prefer React Js in actual products, JQuery was used to build it in short span of time because of readily available validator plugin.
 
 Once the validation is successful, the form data is posted as JSON to the REST end point.

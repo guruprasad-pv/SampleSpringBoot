@@ -1,4 +1,4 @@
-package com.k15t.pat.registration;
+package com.gurupv.base.registration;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

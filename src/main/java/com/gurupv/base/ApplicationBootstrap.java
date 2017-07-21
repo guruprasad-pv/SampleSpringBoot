@@ -1,4 +1,4 @@
-package com.k15t.pat;
+package com.gurupv.base;
 
 import java.util.Properties;
 

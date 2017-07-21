@@ -1,4 +1,4 @@
-package com.k15t.pat.registration.model;
+package com.gurupv.base.registration.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

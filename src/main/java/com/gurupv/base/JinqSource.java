@@ -1,4 +1,4 @@
-package com.k15t.pat;
+package com.gurupv.base;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,7 +8,7 @@ import org.jinq.jpa.JPAJinqStream;
 import org.jinq.jpa.JinqJPAStreamProvider;
 import org.springframework.stereotype.Component;
 
-import com.k15t.pat.registration.model.Registration;
+import com.gurupv.base.registration.model.Registration;
 /**
  * 
  * This will configure JINQ streams

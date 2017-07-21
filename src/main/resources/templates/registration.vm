@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>PAT Registration</title>
+        <title>Registration</title>
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js" integrity="sha256-OYBjfRDIvhV+MwSNsZKYHQIsIqAo/OT1S3e2XHUEHFo=" crossorigin="anonymous"></script>
         <script src="public/js/lobibox.min.js"></script>
@@ -17,7 +17,7 @@
         		<div class="col-lg-12">
 			        <div class="bannerText">
 			            <h1>
-			                <span>Java Meetup Registration</span>
+			                <span>Meeting Registration</span>
 			            </h1>
 			        </div>
 		        </div>
