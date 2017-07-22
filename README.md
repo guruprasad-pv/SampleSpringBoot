@@ -1,5 +1,7 @@
 # Sample Spring Boot Project
 
+Note this repository is also synched with Travis CI
+
 ## The Application
 Small Java application that registers for a Java meet up.
 The registrations are stored in memory HSQL database.
