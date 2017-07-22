@@ -1,6 +1,5 @@
 # Sample Spring Boot Project
 
-
 ## The Application
 Small Java application that registers for a Java meet up.
 The registrations are stored in memory HSQL database.
